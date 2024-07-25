@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  VERSION: v1.0.4
+  VERSION: v1.0.2
 
 jobs:
   build:
@@ -62,7 +62,9 @@ jobs:
           prerelease: false
 
       - name: Log Release Upload URL
-        run: echo "Release upload URL: ${{ steps.create_release.outputs.upload_url }}"
+        run: echo "Release upload URL: $UPLOAD_URL"
+        env:
+          UPLOAD_URL: ${{ steps.create_release.outputs.upload_url }}
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
