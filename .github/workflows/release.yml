@@ -6,7 +6,7 @@ on:
    - main
 
 env:
- VERSION: v1.0.2
+ VERSION: v1.0.3
 
 jobs:
  build:
@@ -15,6 +15,10 @@ jobs:
   steps:
    - name: Checkout repository
      uses: actions/checkout@v2
+
+   - name: Debug Token
+     run: echo ${{ secrets.PAT_TOKEN }}
+     shell: bash
 
    - name: Set up Python
      uses: actions/setup-python@v2
