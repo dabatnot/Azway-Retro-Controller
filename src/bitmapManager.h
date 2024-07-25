@@ -234,4 +234,14 @@ void stoppingScreen()
     display.display();
 }
 
+void stoppedScreen()
+{
+    display.clear();
+    statusScreen();
+    display.drawXbm(4, 42, bmpBye_width, bmpBye_height, bmpBye);
+    display.drawXbm(104, 42, bmpBye_width, bmpBye_height, bmpBye);
+    display.drawXbm(27, 43, bmpStopped_width, bmpStopped_height, bmpStopped);
+    display.display();
+}
+
 #endif // BITMAPMANAGER_H

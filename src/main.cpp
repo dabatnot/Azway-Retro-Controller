@@ -182,7 +182,7 @@ void loop()
         break;
       case 'P':
         Serial.println("ACK:P"); // stopped
-        stoppingScreen();
+        stoppedScreen();
         break;
       default:
         Serial.println("ACK:?");
