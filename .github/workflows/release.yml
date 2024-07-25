@@ -28,25 +28,27 @@ jobs:
      run: pio run
 
    - name: Create build directory
-     run: mkdir -p .pio/build/esp32dev/
+     run: mkdir -p .pio/build/HeltecCustomV2/
 
    - name: Copy Static File
-     run: cp static_bins/boot_app0.bin .pio/build/esp32dev/
+     run: cp static_bins/boot_app0.bin .pio/build/HeltecCustomV2/
+
+   - name: List Build Directory Contents
+     run: ls -la .pio/build/HeltecCustomV2/
 
    - name: Archive Binaries
-     run: zip -j firmware.zip .pio/build/esp32dev/firmware.bin .pio/build/esp32dev/boot_app0.bin
+     run: zip -j firmware.zip .pio/build/HeltecCustomV2/firmware.bin .pio/build/HeltecCustomV2/boot_app0.bin
 
    - name: Create Release
      id: create_release
      uses: actions/create-release@v1
-     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
      with:
       tag_name: ${{ env.VERSION }}
       release_name: Release ${{ env.VERSION }}
       body: 'Automated release of the firmware'
       draft: false
       prerelease: false
+      token: ${{ secrets.GITHUB_TOKEN }}
 
    - name: Upload Release Asset
      id: upload-release-asset
@@ -56,3 +58,4 @@ jobs:
       asset_path: firmware.zip
       asset_name: firmware.zip
       asset_content_type: application/zip
+      token: ${{ secrets.GITHUB_TOKEN }}
