@@ -24,6 +24,9 @@ jobs:
    - name: Build Project
      run: pio run
 
+   - name: Create build directory
+     run: mkdir -p .pio/build/esp32dev/
+
    - name: Copy Static File
      run: cp static_bins/boot_app0.bin .pio/build/esp32dev/
 
