@@ -6,7 +6,7 @@ on:
    - main
 
 env:
- VERSION: v1.0.5
+ VERSION: v1.0.2
 
 jobs:
  build:
@@ -61,10 +61,11 @@ jobs:
       draft: false
       prerelease: false
 
-   - name: Upload Release Asset
-     uses: actions/upload-release-asset@v1
-     with:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-      asset_path: firmware.zip
-      asset_name: firmware.zip
-      asset_content_type: application/zip
+   - name: Upload Release Asset using curl
+     run: |
+      UPLOAD_URL="${{ steps.create_release.outputs.upload_url }}"
+      echo "Uploading to $UPLOAD_URL"
+      curl -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
+           -H "Content-Type: application/zip" \
+           --data-binary @firmware.zip \
+           "$UPLOAD_URL?name=firmware.zip&label=Firmware"
