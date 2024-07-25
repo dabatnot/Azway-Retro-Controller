@@ -6,7 +6,7 @@ on:
    - main
 
 env:
- VERSION: v1.0.3
+ VERSION: v1.0.2
 
 jobs:
  build:
@@ -16,8 +16,15 @@ jobs:
    - name: Checkout repository
      uses: actions/checkout@v2
 
-   - name: Debug Token
-     run: echo ${{ secrets.PAT_TOKEN }}
+   - name: Check GitHub Authentication
+     run: |
+      response=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token ${{ secrets.PAT_TOKEN }}" https://api.github.com/user)
+      if [ $response -eq 200 ]; then
+        echo "Authentication successful"
+      else
+        echo "Authentication failed"
+        exit 1
+      fi
      shell: bash
 
    - name: Set up Python
