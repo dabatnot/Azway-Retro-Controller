@@ -59,4 +59,3 @@ jobs:
       asset_path: firmware.zip
       asset_name: firmware.zip
       asset_content_type: application/zip
-      token: ${{ secrets.PAT_TOKEN }}
