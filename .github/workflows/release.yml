@@ -22,7 +22,7 @@ jobs:
       if [ $response -eq 200 ]; then
         echo "Authentication successful"
       else
-        echo "Authentication failed"
+        echo "Authentication failed with status code $response"
         exit 1
       fi
      shell: bash
@@ -53,14 +53,13 @@ jobs:
    - name: Create Release
      id: create_release
      uses: actions/create-release@v1
-     env:
-      GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
      with:
       tag_name: ${{ env.VERSION }}
       release_name: Release ${{ env.VERSION }}
       body: 'Automated release of the firmware'
       draft: false
       prerelease: false
+      token: ${{ secrets.PAT_TOKEN }}
 
    - name: Upload Release Asset
      uses: actions/upload-release-asset@v1
@@ -69,3 +68,4 @@ jobs:
       asset_path: firmware.zip
       asset_name: firmware.zip
       asset_content_type: application/zip
+      token: ${{ secrets.PAT_TOKEN }}
