@@ -1,0 +1,146 @@
+\doxysection{led\+Status.\+h}
+\hypertarget{ledStatus_8h_source}{}\label{ledStatus_8h_source}\index{src/ledStatus.h@{src/ledStatus.h}}
+\mbox{\hyperlink{ledStatus_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/***************************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ MIT\ License}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2024\ Daboule,\ Azway\ Retro}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ the\ rights}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and/or\ sell}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ SOFTWARE.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ ****************************************************************************************/}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#ifndef\ LEDSTATUS\_H}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ LEDSTATUS\_H}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}HT\_SSD1306Wire.h"{}}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{images_8h}{images.h}}"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{display_8h}{display.h}}"{}}\ \textcolor{comment}{//\ Include\ display.h\ to\ use\ the\ display\ object}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ Pin\ definitions}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{ledStatus_8h_a2cd9f0d96c9cd0637798de3baa7aee60}{ledPin}}\ =\ LED;\ \textcolor{comment}{//\ LED\ connected\ to\ GPIO\ pin}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{ledStatus_8h_a43ade8190c6181efc642adb3e5aa1736}{LedStatus}}}
+\DoxyCodeLine{00061\ \{}
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{ledStatus_8h_a43ade8190c6181efc642adb3e5aa1736aac132f2982b98bcaa3445e535a03ff75}{OFF}},}
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{ledStatus_8h_a43ade8190c6181efc642adb3e5aa1736a6564f2f3e15be06b670547bbcaaf0798}{READY}},}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{ledStatus_8h_a43ade8190c6181efc642adb3e5aa1736a757971c0bc5a1972d5f1b1be2c0e2087}{WAITING}},}
+\DoxyCodeLine{00065\ \ \ \mbox{\hyperlink{ledStatus_8h_a43ade8190c6181efc642adb3e5aa1736a702582f7f825ca83bdb076b15b4c0fc2}{CONFIG}}}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{ledStatus_8h_ac0da1ba5a17b8c8fe5579cceb3be3cdb}{joyPos}}[4]\ =\ \{0,\ 1,\ 2,\ 3\};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{volatile}\ \mbox{\hyperlink{ledStatus_8h_a43ade8190c6181efc642adb3e5aa1736}{LedStatus}}\ \mbox{\hyperlink{ledStatus_8h_af29513c4a48a7816451888a70dea5584}{currentStatus}}\ =\ \mbox{\hyperlink{ledStatus_8h_a43ade8190c6181efc642adb3e5aa1736aac132f2982b98bcaa3445e535a03ff75}{OFF}};\ }
+\DoxyCodeLine{00070\ TaskHandle\_t\ \mbox{\hyperlink{ledStatus_8h_aa8a74d99e32c031fea96c5a186b717ae}{Task1}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00080\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ledStatus_8h_af6c50113f7a4f4e426a92bfc84d4ee6e}{manageLED}}(\textcolor{keywordtype}{void}\ *pvParameters);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ledStatus_8h_a82e34c2fc28747a4dcc81e3b17f43fc3}{activateLeds}}(\textcolor{keywordtype}{int}\ nbPlayers,\ \textcolor{keywordtype}{bool}\ showStatus\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ledStatus_8h_a769d1dacfe53490335b09588ec128c5a}{setupLED}}();}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{comment}{//\ Function\ definitions}}
+\DoxyCodeLine{00104\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ledStatus_8h_af6c50113f7a4f4e426a92bfc84d4ee6e}{manageLED}}(\textcolor{keywordtype}{void}\ *pvParameters)}
+\DoxyCodeLine{00105\ \{}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordflow}{while}\ (1)}
+\DoxyCodeLine{00107\ \ \ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{ledStatus_8h_af29513c4a48a7816451888a70dea5584}{currentStatus}})}
+\DoxyCodeLine{00109\ \ \ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{ledStatus_8h_a43ade8190c6181efc642adb3e5aa1736aac132f2982b98bcaa3445e535a03ff75}{OFF}}:}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ digitalWrite(\mbox{\hyperlink{ledStatus_8h_a2cd9f0d96c9cd0637798de3baa7aee60}{ledPin}},\ LOW);}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ vTaskDelay(100\ /\ portTICK\_PERIOD\_MS);\ \textcolor{comment}{//\ Check\ every\ 100\ ms}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{ledStatus_8h_a43ade8190c6181efc642adb3e5aa1736a6564f2f3e15be06b670547bbcaaf0798}{READY}}:}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ digitalWrite(\mbox{\hyperlink{ledStatus_8h_a2cd9f0d96c9cd0637798de3baa7aee60}{ledPin}},\ HIGH);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ vTaskDelay(100\ /\ portTICK\_PERIOD\_MS);\ \textcolor{comment}{//\ Check\ every\ 100\ ms}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{ledStatus_8h_a43ade8190c6181efc642adb3e5aa1736a757971c0bc5a1972d5f1b1be2c0e2087}{WAITING}}:}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ digitalWrite(\mbox{\hyperlink{ledStatus_8h_a2cd9f0d96c9cd0637798de3baa7aee60}{ledPin}},\ HIGH);}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ vTaskDelay(200\ /\ portTICK\_PERIOD\_MS);\ \textcolor{comment}{//\ On\ for\ 200\ ms}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ digitalWrite(\mbox{\hyperlink{ledStatus_8h_a2cd9f0d96c9cd0637798de3baa7aee60}{ledPin}},\ LOW);}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ vTaskDelay(1000\ /\ portTICK\_PERIOD\_MS);\ \textcolor{comment}{//\ Off\ for\ 1000\ ms}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{ledStatus_8h_a43ade8190c6181efc642adb3e5aa1736a702582f7f825ca83bdb076b15b4c0fc2}{CONFIG}}:}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ digitalWrite(\mbox{\hyperlink{ledStatus_8h_a2cd9f0d96c9cd0637798de3baa7aee60}{ledPin}},\ HIGH);}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ vTaskDelay(25\ /\ portTICK\_PERIOD\_MS);\ \textcolor{comment}{//\ On\ for\ 25\ ms}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ digitalWrite(\mbox{\hyperlink{ledStatus_8h_a2cd9f0d96c9cd0637798de3baa7aee60}{ledPin}},\ LOW);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ vTaskDelay(100\ /\ portTICK\_PERIOD\_MS);\ \textcolor{comment}{//\ Off\ for\ 100\ ms}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \}}
+\DoxyCodeLine{00132\ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00140\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ledStatus_8h_a82e34c2fc28747a4dcc81e3b17f43fc3}{activateLeds}}(\textcolor{keywordtype}{int}\ nbPlayers,\ \textcolor{keywordtype}{bool}\ showStatus)}
+\DoxyCodeLine{00141\ \{}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordflow}{if}\ (nbPlayers\ >\ 4)}
+\DoxyCodeLine{00143\ \ \ \{}
+\DoxyCodeLine{00144\ \ \ \ \ nbPlayers\ =\ 4;}
+\DoxyCodeLine{00145\ \ \ \}}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (nbPlayers\ <\ 0)}
+\DoxyCodeLine{00147\ \ \ \{}
+\DoxyCodeLine{00148\ \ \ \ \ nbPlayers\ =\ 1;}
+\DoxyCodeLine{00149\ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \textcolor{keywordtype}{bool}\ ledStatus[4]\ =\ \{\textcolor{keyword}{false},\ \textcolor{keyword}{false},\ \textcolor{keyword}{false},\ \textcolor{keyword}{false}\};}
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ currentJoy\ =\ 0;\ currentJoy\ <\ nbPlayers;\ currentJoy++)}
+\DoxyCodeLine{00153\ \ \ \{}
+\DoxyCodeLine{00154\ \ \ \ \ ledStatus[currentJoy]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00155\ \ \ \}}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ currentJoy\ =\ 0;\ currentJoy\ <\ 4;\ currentJoy++)}
+\DoxyCodeLine{00157\ \ \ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordflow}{if}\ (ledStatus[currentJoy])}
+\DoxyCodeLine{00159\ \ \ \ \ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (showStatus)}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{display_8h_a25bef9166a8613673b3713cfb5113543}{display}}.drawXbm(\mbox{\hyperlink{ledStatus_8h_ac0da1ba5a17b8c8fe5579cceb3be3cdb}{joyPos}}[currentJoy]\ *\ 32,\ 32,\ \mbox{\hyperlink{images_8h_ae884cb6e4a7344af85846b27557cb933}{Joystick\_icon\_width}},\ \mbox{\hyperlink{images_8h_ae884cb6e4a7344af85846b27557cb933}{Joystick\_icon\_width}},\ \mbox{\hyperlink{images_8h_a12140c6c759c64fdc0a997f8e8ab3d54}{JoyON}}[currentJoy]);}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00166\ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (showStatus)}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{display_8h_a25bef9166a8613673b3713cfb5113543}{display}}.drawXbm(\mbox{\hyperlink{ledStatus_8h_ac0da1ba5a17b8c8fe5579cceb3be3cdb}{joyPos}}[currentJoy]\ *\ 32,\ 32,\ \mbox{\hyperlink{images_8h_ae884cb6e4a7344af85846b27557cb933}{Joystick\_icon\_width}},\ \mbox{\hyperlink{images_8h_ae884cb6e4a7344af85846b27557cb933}{Joystick\_icon\_width}},\ \mbox{\hyperlink{images_8h_a594e5110678163e6596639754bea42b5}{JoyOFF}}[currentJoy]);}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \}}
+\DoxyCodeLine{00173\ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00178\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ledStatus_8h_a769d1dacfe53490335b09588ec128c5a}{setupLED}}()}
+\DoxyCodeLine{00179\ \{}
+\DoxyCodeLine{00180\ \ \ \textcolor{comment}{//\ Initialize\ pin}}
+\DoxyCodeLine{00181\ \ \ pinMode(\mbox{\hyperlink{ledStatus_8h_a2cd9f0d96c9cd0637798de3baa7aee60}{ledPin}},\ OUTPUT);}
+\DoxyCodeLine{00182\ \ \ digitalWrite(\mbox{\hyperlink{ledStatus_8h_a2cd9f0d96c9cd0637798de3baa7aee60}{ledPin}},\ LOW);}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \textcolor{comment}{//\ Initialize\ serial\ port}}
+\DoxyCodeLine{00185\ \ \ Serial.begin(115200);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \textcolor{comment}{//\ Create\ tasks}}
+\DoxyCodeLine{00188\ \ \ xTaskCreatePinnedToCore(}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \mbox{\hyperlink{ledStatus_8h_af6c50113f7a4f4e426a92bfc84d4ee6e}{manageLED}},\ \ \ \ \textcolor{comment}{//\ Task\ function}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Manage\ LED"{}},\ \textcolor{comment}{//\ Task\ name}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ 1024,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Stack\ size}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ NULL,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Task\ parameter}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ 1,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Task\ priority}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \&\mbox{\hyperlink{ledStatus_8h_aa8a74d99e32c031fea96c5a186b717ae}{Task1}},\ \ \ \ \ \ \ \textcolor{comment}{//\ Task\ handle}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ 1);\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ CPU\ core\ to\ run\ the\ task}}
+\DoxyCodeLine{00196\ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LEDSTATUS\_H}}
+
+\end{DoxyCode}

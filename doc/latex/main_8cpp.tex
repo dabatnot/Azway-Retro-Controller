@@ -1,0 +1,75 @@
+\doxysection{src/main.cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{src/main.cpp@{src/main.cpp}}
+
+
+Main program file for managing an OLED display and LED statuses using Free\+RTOS tasks on an Arduino-\/compatible microcontroller.  
+
+
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$SPI.\+h$>$}\newline
+{\ttfamily \#include "{}HT\+\_\+\+SSD1306\+Wire.\+h"{}}\newline
+{\ttfamily \#include "{}images.\+h"{}}\newline
+{\ttfamily \#include "{}power\+Management.\+h"{}}\newline
+{\ttfamily \#include "{}led\+Status.\+h"{}}\newline
+{\ttfamily \#include "{}bitmap\+Manager.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+SSD1306\+Wire \mbox{\hyperlink{main_8cpp_a3865ffa23ad42437d3fbd3c46115e45e}{display}} (0x3c, 500000, SDA\+\_\+\+OLED, SCL\+\_\+\+OLED, GEOMETRY\+\_\+128\+\_\+64, RST\+\_\+\+OLED)
+\item 
+void \mbox{\hyperlink{main_8cpp_af275ad78b7a81fe03b81a8590bc2feef}{init\+Joystick}} (int joystick\+Num)
+\begin{DoxyCompactList}\small\item\em Initializes the joystick with the given number. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\begin{DoxyCompactList}\small\item\em Setup function called once at startup. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
+\begin{DoxyCompactList}\small\item\em Main loop function called repeatedly. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main program file for managing an OLED display and LED statuses using Free\+RTOS tasks on an Arduino-\/compatible microcontroller. 
+
+This program initializes the OLED display, manages joystick initialization and displays various statuses based on serial input. It also controls LED statuses to indicate different system states. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_a3865ffa23ad42437d3fbd3c46115e45e}\label{main_8cpp_a3865ffa23ad42437d3fbd3c46115e45e} 
+\index{main.cpp@{main.cpp}!display@{display}}
+\index{display@{display}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily SSD1306\+Wire display (\begin{DoxyParamCaption}\item[{0x3c}]{,  }\item[{500000}]{,  }\item[{SDA\+\_\+\+OLED}]{,  }\item[{SCL\+\_\+\+OLED}]{,  }\item[{GEOMETRY\+\_\+128\+\_\+64}]{,  }\item[{RST\+\_\+\+OLED}]{ }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_af275ad78b7a81fe03b81a8590bc2feef}\label{main_8cpp_af275ad78b7a81fe03b81a8590bc2feef} 
+\index{main.cpp@{main.cpp}!initJoystick@{initJoystick}}
+\index{initJoystick@{initJoystick}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{initJoystick()}{initJoystick()}}
+{\footnotesize\ttfamily void init\+Joystick (\begin{DoxyParamCaption}\item[{int}]{joystick\+Num }\end{DoxyParamCaption})}
+
+
+
+Initializes the joystick with the given number. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em joystick\+Num} & The number of the joystick to initialize. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{main_8cpp_afe461d27b9c48d5921c00d521181f12f}\label{main_8cpp_afe461d27b9c48d5921c00d521181f12f} 
+\index{main.cpp@{main.cpp}!loop@{loop}}
+\index{loop@{loop}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily void loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Main loop function called repeatedly. 
+
+This function checks for incoming serial messages and updates the OLED display and LED status based on the received messages. \Hypertarget{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}\label{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d} 
+\index{main.cpp@{main.cpp}!setup@{setup}}
+\index{setup@{setup}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Setup function called once at startup. 
+
+This function initializes serial communication, the OLED display, and the LED management system. 
