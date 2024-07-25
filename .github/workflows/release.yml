@@ -1,67 +1,44 @@
-name: Create Release
+name: Release Firmware
 
 on:
  push:
-  branches:
-   - main
-
-env:
- VERSION: v1.1.1
+  tags:
+   - 'v*.*.*'
 
 jobs:
- build:
+ release:
   runs-on: ubuntu-latest
 
   steps:
    - name: Checkout repository
      uses: actions/checkout@v2
 
-   - name: Check GitHub Authentication
-     run: |
-      response=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token ${{ secrets.PAT_TOKEN }}" https://api.github.com/user)
-      if [ $response -eq 200 ]; then
-        echo "Authentication successful"
-      else
-        echo "Authentication failed with status code $response"
-        exit 1
-      fi
-     shell: bash
-
    - name: Set up Python
      uses: actions/setup-python@v2
      with:
       python-version: '3.x'
 
-   - name: Install PlatformIO
+   - name: Install dependencies
      run: pip install -U platformio
 
    - name: Build Project
      run: pio run
 
-   - name: Create build directory
-     run: mkdir -p .pio/build/HeltecCustomV2/
-
-   - name: Copy Static File
-     run: cp static_bins/boot_app0.bin .pio/build/HeltecCustomV2/
-
-   - name: List Build Directory Contents
-     run: ls -la .pio/build/HeltecCustomV2/
-
    - name: Archive Binaries
-     run: zip -j firmware.zip .pio/build/HeltecCustomV2/firmware.bin .pio/build/HeltecCustomV2/boot_app0.bin .pio/build/HeltecCustomV2/bootloader.bin .pio/build/HeltecCustomV2/partitions.bin
+     run: zip -j firmware.zip .pio/build/your_environment/firmware.bin
 
    - name: Create Release
      id: create_release
      uses: ncipollo/release-action@v1
      with:
       token: ${{ secrets.PAT_TOKEN }}
-      tag: ${{ env.VERSION }}
-      name: Release ${{ env.VERSION }}
+      tag: ${{ github.ref_name }}
+      name: Release ${{ github.ref_name }}
       body: 'Automated release of the firmware'
       draft: false
       prerelease: false
 
-   - name: Upload Release Asset using curl
+   - name: Upload Release Asset
      run: |
       UPLOAD_URL="${{ steps.create_release.outputs.upload_url }}"
       UPLOAD_URL="${UPLOAD_URL/\{?name,label\}/}"
