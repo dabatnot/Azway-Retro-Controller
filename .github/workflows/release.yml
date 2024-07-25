@@ -6,7 +6,7 @@ on:
    - main
 
 env:
- VERSION: v1.0.5
+ VERSION: v1.0.2
 
 jobs:
  build:
@@ -64,8 +64,10 @@ jobs:
    - name: Upload Release Asset using curl
      run: |
       UPLOAD_URL="${{ steps.create_release.outputs.upload_url }}"
+      UPLOAD_URL="${UPLOAD_URL/\{?name,label\}/}"
       echo "Uploading to $UPLOAD_URL"
-      curl -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
-           -H "Content-Type: application/zip" \
-           --data-binary @firmware.zip \
+      curl -X POST \
+           -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
+           -H "Content-Type: multipart/form-data" \
+           -F "file=@firmware.zip" \
            "$UPLOAD_URL?name=firmware.zip&label=Firmware"
