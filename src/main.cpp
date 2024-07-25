@@ -33,8 +33,8 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include "HT_SSD1306Wire.h"
-#include "images.h"
 #include "powerManagement.h"
+#include "images.h"
 #include "ledStatus.h"
 #include "bitmapManager.h"
 

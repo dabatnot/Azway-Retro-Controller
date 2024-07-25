@@ -50,4 +50,16 @@ void VextON(void);
  */
 void VextOFF(void);
 
+// Manage VEXT
+void VextON(void)
+{
+    pinMode(Vext, OUTPUT);
+    digitalWrite(Vext, LOW);
+}
+
+void VextOFF(void) // Vext default OFF
+{
+    pinMode(Vext, OUTPUT);
+    digitalWrite(Vext, HIGH);
+}
 #endif // POWERMANAGEMENT_H
