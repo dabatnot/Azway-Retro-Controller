@@ -1,14 +1,5 @@
-name: Create Release
-
-on:
- push:
-  branches:
-   - main
-
-permissions:
- contents: write
- packages: write
- deployments: write
+env:
+ VERSION: v1.0.0
 
 jobs:
  build:
@@ -44,8 +35,8 @@ jobs:
      env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
      with:
-      tag_name: ${{ github.ref }}
-      release_name: Release ${{ github.ref }}
+      tag_name: ${{ env.VERSION }}
+      release_name: Release ${{ env.VERSION }}
       body: 'Automated release of the firmware'
       draft: false
       prerelease: false
