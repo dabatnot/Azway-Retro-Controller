@@ -2,12 +2,14 @@
 #ifndef FIRMWARE_CONFIG_H
 #define FIRMWARE_CONFIG_H
 
-const char CONTROLLER_VERSION[] = "v1.1.15";
+const char CONTROLLER_VERSION[] = "v1.1.16";
 
 //===============================
 // USED PINS.
 // Some pins should be avoided as they are used by builtin features like on board OLED screen.
-// This pin list is safe
+// This pin list is safe, some other will work as well but you can run into an issue where ESPTOOL won't be able to
+// flash the ESP.
+// Be warned :)
 const int RELAY1 = 7;
 const int RELAY2 = 6;
 const int RELAY3 = 5;
