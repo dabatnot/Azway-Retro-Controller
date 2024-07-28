@@ -60,7 +60,7 @@ void loadingScreen()
     int x = display.width() / 2;
     display.setTextAlignment(TEXT_ALIGN_CENTER);
     display.setFont(ArialMT_Plain_10);
-    display.drawString(x, 52, "Only Retrogaming");
+    display.drawString(x, 52, CONTROLLER_VERSION);
     display.display();
     delay(10000);
     display.clear();
