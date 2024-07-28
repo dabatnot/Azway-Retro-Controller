@@ -1,5 +1,5 @@
-\doxysection{src/bitmap\+Manager.h File Reference}
-\hypertarget{bitmapManager_8h}{}\label{bitmapManager_8h}\index{src/bitmapManager.h@{src/bitmapManager.h}}
+\doxysection{include/bitmap\+Manager.h File Reference}
+\hypertarget{bitmapManager_8h}{}\label{bitmapManager_8h}\index{include/bitmapManager.h@{include/bitmapManager.h}}
 
 
 Header file to manage bitmap creation and display on the OLED screen.  
@@ -34,7 +34,9 @@ void \mbox{\hyperlink{bitmapManager_8h_ad70726016b7722deb394071ac6572e63}{ready\
 void \mbox{\hyperlink{bitmapManager_8h_ac740545a3bc61ced5b391cddcb438622}{starting\+Screen}} ()
 \begin{DoxyCompactList}\small\item\em Displays the starting screen on the OLED display. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{bitmapManager_8h_a7289c06faeea112b96755f6b26db45f6}{stopping\+Screen}} ()
-\begin{DoxyCompactList}\small\item\em Displays the stopping screen on the OLED display. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Displays the stopping screen on the OLED display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bitmapManager_8h_a14797808e6c8236e04bbb527005d892f}{stopped\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Displays the stopped screen on the OLED display. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -83,7 +85,7 @@ Displays the joystick screen on the OLED display.
 
 Displays the loading screen during initialization. 
 
-Displays a loading screen with progress bars for joystick initialization.
+Displays the loading screen during initialization.
 
 This function sets the LED status to CONFIG and iterates through the joysticks, displaying a progress bar for each one. Once done, it sets the display to a "{}\+Ready"{} state. \Hypertarget{bitmapManager_8h_a844bc9e06788d1c0e4692f189f77af38}\label{bitmapManager_8h_a844bc9e06788d1c0e4692f189f77af38} 
 \index{bitmapManager.h@{bitmapManager.h}!mainScreen@{mainScreen}}
@@ -124,6 +126,16 @@ Displays the starting screen on the OLED display.
 
 
 Displays the status screen on the OLED display. 
+
+\Hypertarget{bitmapManager_8h_a14797808e6c8236e04bbb527005d892f}\label{bitmapManager_8h_a14797808e6c8236e04bbb527005d892f} 
+\index{bitmapManager.h@{bitmapManager.h}!stoppedScreen@{stoppedScreen}}
+\index{stoppedScreen@{stoppedScreen}!bitmapManager.h@{bitmapManager.h}}
+\doxysubsubsection{\texorpdfstring{stoppedScreen()}{stoppedScreen()}}
+{\footnotesize\ttfamily void stopped\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays the stopped screen on the OLED display. 
 
 \Hypertarget{bitmapManager_8h_a7289c06faeea112b96755f6b26db45f6}\label{bitmapManager_8h_a7289c06faeea112b96755f6b26db45f6} 
 \index{bitmapManager.h@{bitmapManager.h}!stoppingScreen@{stoppingScreen}}

@@ -1,7 +1,7 @@
 /***************************************************************************************
  * MIT License
  *
- * Copyright (c) 2024 Daboule, Azway Retro
+ * Copyright (c) 2024 Dabatnot, Azway Retro
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,43 +23,32 @@
  ****************************************************************************************/
 
 /**
- * @file powerManagement.h
- * @brief Header file for managing power supply (Vext) on the microcontroller.
+ * @file powerManagement.cpp
+ * @brief Source file for managing power supply (Vext) on the microcontroller.
  *
- * This file contains the function declarations for turning on and off the Vext power supply.
+ * This file contains the function implementations for turning on and off the Vext power supply.
  */
 
-#ifndef POWERMANAGEMENT_H
-#define POWERMANAGEMENT_H
-
-#include <Arduino.h>
-
-// Function declarations
+#include "powerManagement.h"
 
 /**
  * @brief Turns on the Vext power supply.
  *
  * This function sets the Vext pin to OUTPUT mode and writes a LOW signal to turn on the Vext power supply.
  */
-void VextON(void);
-
-/**
- * @brief Turns off the Vext power supply.
- *
- * This function sets the Vext pin to OUTPUT mode and writes a HIGH signal to turn off the Vext power supply.
- */
-void VextOFF(void);
-
-// Manage VEXT
 void VextON(void)
 {
     pinMode(Vext, OUTPUT);
     digitalWrite(Vext, LOW);
 }
 
-void VextOFF(void) // Vext default OFF
+/**
+ * @brief Turns off the Vext power supply.
+ *
+ * This function sets the Vext pin to OUTPUT mode and writes a HIGH signal to turn off the Vext power supply.
+ */
+void VextOFF(void)
 {
     pinMode(Vext, OUTPUT);
     digitalWrite(Vext, HIGH);
 }
-#endif // POWERMANAGEMENT_H

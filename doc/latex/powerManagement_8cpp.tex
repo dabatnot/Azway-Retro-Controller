@@ -1,0 +1,44 @@
+\doxysection{src/power\+Management.cpp File Reference}
+\hypertarget{powerManagement_8cpp}{}\label{powerManagement_8cpp}\index{src/powerManagement.cpp@{src/powerManagement.cpp}}
+
+
+Source file for managing power supply (Vext) on the microcontroller.  
+
+
+{\ttfamily \#include "{}power\+Management.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{powerManagement_8cpp_a66aeb7741ab02269e41efbda10faf5e3}{Vext\+ON}} (void)
+\begin{DoxyCompactList}\small\item\em Turns on the Vext power supply. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{powerManagement_8cpp_a90bfc1dd24517b79e2e04e6c3096283a}{Vext\+OFF}} (void)
+\begin{DoxyCompactList}\small\item\em Turns off the Vext power supply. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Source file for managing power supply (Vext) on the microcontroller. 
+
+This file contains the function implementations for turning on and off the Vext power supply. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{powerManagement_8cpp_a90bfc1dd24517b79e2e04e6c3096283a}\label{powerManagement_8cpp_a90bfc1dd24517b79e2e04e6c3096283a} 
+\index{powerManagement.cpp@{powerManagement.cpp}!VextOFF@{VextOFF}}
+\index{VextOFF@{VextOFF}!powerManagement.cpp@{powerManagement.cpp}}
+\doxysubsubsection{\texorpdfstring{VextOFF()}{VextOFF()}}
+{\footnotesize\ttfamily void Vext\+OFF (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Turns off the Vext power supply. 
+
+This function sets the Vext pin to OUTPUT mode and writes a HIGH signal to turn off the Vext power supply. \Hypertarget{powerManagement_8cpp_a66aeb7741ab02269e41efbda10faf5e3}\label{powerManagement_8cpp_a66aeb7741ab02269e41efbda10faf5e3} 
+\index{powerManagement.cpp@{powerManagement.cpp}!VextON@{VextON}}
+\index{VextON@{VextON}!powerManagement.cpp@{powerManagement.cpp}}
+\doxysubsubsection{\texorpdfstring{VextON()}{VextON()}}
+{\footnotesize\ttfamily void Vext\+ON (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Turns on the Vext power supply. 
+
+This function sets the Vext pin to OUTPUT mode and writes a LOW signal to turn on the Vext power supply. 

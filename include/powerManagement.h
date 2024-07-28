@@ -1,7 +1,7 @@
 /***************************************************************************************
  * MIT License
  *
- * Copyright (c) 2024 Daboule, Azway Retro
+ * Copyright (c) 2024 Dabatnot, Azway Retro
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,26 +23,31 @@
  ****************************************************************************************/
 
 /**
- * @file display.h
- * @brief Header file for managing the OLED display.
+ * @file powerManagement.h
+ * @brief Header file for managing power supply (Vext) on the microcontroller.
  *
- * This file contains the declaration of the SSD1306Wire display object, which is used to manage
- * the OLED display. It includes necessary libraries and ensures the display object can be accessed
- * throughout the program.
+ * This file contains the function declarations for turning on and off the Vext power supply.
  */
 
-#ifndef DISPLAY_H
-#define DISPLAY_H
+#ifndef POWERMANAGEMENT_H
+#define POWERMANAGEMENT_H
 
 #include <Arduino.h>
-#include "HT_SSD1306Wire.h"
+
+// Function declarations
 
 /**
- * @brief Global instance of the SSD1306Wire class used to manage the OLED display.
+ * @brief Turns on the Vext power supply.
  *
- * This object is declared as an external variable so it can be accessed and used in other files
- * that include this header.
+ * This function sets the Vext pin to OUTPUT mode and writes a LOW signal to turn on the Vext power supply.
  */
-extern SSD1306Wire display;
+void VextON(void);
 
-#endif // DISPLAY_H
+/**
+ * @brief Turns off the Vext power supply.
+ *
+ * This function sets the Vext pin to OUTPUT mode and writes a HIGH signal to turn off the Vext power supply.
+ */
+void VextOFF(void);
+
+#endif // POWERMANAGEMENT_H

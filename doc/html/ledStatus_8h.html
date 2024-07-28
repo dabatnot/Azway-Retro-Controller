@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Azway Retro Controller: src/ledStatus.h File Reference</title>
+<title>Azway Retro Controller: include/ledStatus.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,7 +73,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -120,10 +120,10 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:a2cd9f0d96c9cd0637798de3baa7aee60" id="r_a2cd9f0d96c9cd0637798de3baa7aee60"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2cd9f0d96c9cd0637798de3baa7aee60">ledPin</a> = LED</td></tr>
 <tr class="separator:a2cd9f0d96c9cd0637798de3baa7aee60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0da1ba5a17b8c8fe5579cceb3be3cdb" id="r_ac0da1ba5a17b8c8fe5579cceb3be3cdb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0da1ba5a17b8c8fe5579cceb3be3cdb">joyPos</a> [4] = {0, 1, 2, 3}</td></tr>
+<tr class="memitem:ac0da1ba5a17b8c8fe5579cceb3be3cdb" id="r_ac0da1ba5a17b8c8fe5579cceb3be3cdb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0da1ba5a17b8c8fe5579cceb3be3cdb">joyPos</a> [4]</td></tr>
 <tr class="memdesc:ac0da1ba5a17b8c8fe5579cceb3be3cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positions of the joysticks on the display.  <br /></td></tr>
 <tr class="separator:ac0da1ba5a17b8c8fe5579cceb3be3cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af29513c4a48a7816451888a70dea5584" id="r_af29513c4a48a7816451888a70dea5584"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="#a43ade8190c6181efc642adb3e5aa1736">LedStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af29513c4a48a7816451888a70dea5584">currentStatus</a> = <a class="el" href="#a43ade8190c6181efc642adb3e5aa1736aac132f2982b98bcaa3445e535a03ff75">OFF</a></td></tr>
+<tr class="memitem:af29513c4a48a7816451888a70dea5584" id="r_af29513c4a48a7816451888a70dea5584"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="#a43ade8190c6181efc642adb3e5aa1736">LedStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af29513c4a48a7816451888a70dea5584">currentStatus</a></td></tr>
 <tr class="memdesc:af29513c4a48a7816451888a70dea5584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current status of the LED.  <br /></td></tr>
 <tr class="separator:af29513c4a48a7816451888a70dea5584"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8a74d99e32c031fea96c5a186b717ae" id="r_aa8a74d99e32c031fea96c5a186b717ae"><td class="memItemLeft" align="right" valign="top">TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8a74d99e32c031fea96c5a186b717ae">Task1</a></td></tr>
@@ -182,12 +182,20 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>showStatus</em><span class="paramdefsep"> = </span><span class="paramdefval">true</span></span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>showStatus</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Activates LEDs based on the number of players. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbPlayers</td><td>The number of players. </td></tr>
+    <tr><td class="paramname">showStatus</td><td>Whether to show the status on the display.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function turns on the appropriate number of LEDs based on the number of players. It also updates the display to show the status of each LED.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nbPlayers</td><td>The number of players. </td></tr>
@@ -240,6 +248,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initializes the LED pin, serial communication, and creates the FreeRTOS tasks. </p>
+<p>This function sets up the necessary hardware and tasks for managing the LED. </p>
 
 </div>
 </div>
@@ -249,11 +258,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">volatile <a class="el" href="#a43ade8190c6181efc642adb3e5aa1736">LedStatus</a> currentStatus = <a class="el" href="#a43ade8190c6181efc642adb3e5aa1736aac132f2982b98bcaa3445e535a03ff75">OFF</a></td>
+          <td class="memname">volatile <a class="el" href="#a43ade8190c6181efc642adb3e5aa1736">LedStatus</a> currentStatus</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Current status of the LED. </p>
@@ -265,11 +282,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int joyPos[4] = {0, 1, 2, 3}</td>
+          <td class="memname">int joyPos[4]</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Positions of the joysticks on the display. </p>
@@ -295,11 +320,19 @@ Variables</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">TaskHandle_t Task1</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Handle for the LED management task. </p>

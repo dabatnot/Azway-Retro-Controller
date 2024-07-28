@@ -1,0 +1,165 @@
+\doxysection{src/bitmap\+Manager.cpp File Reference}
+\hypertarget{bitmapManager_8cpp}{}\label{bitmapManager_8cpp}\index{src/bitmapManager.cpp@{src/bitmapManager.cpp}}
+
+
+Source file to manage bitmap creation and display on the OLED screen.  
+
+
+{\ttfamily \#include "{}bitmap\+Manager.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{bitmapManager_8cpp_af217e90c928439900ae3f1a70ceeacf0}{draw\+Logo}} ()
+\begin{DoxyCompactList}\small\item\em Draws the logo on the OLED display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bitmapManager_8cpp_a0c76d521fb34b3deb0608a228ab3b620}{loading\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Displays a loading screen with progress bars for joystick initialization. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bitmapManager_8cpp_ae358b741776acd08a31c41d337c239cb}{top\+Frame}} ()
+\begin{DoxyCompactList}\small\item\em Draws the top frame on the OLED display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bitmapManager_8cpp_a9579a44d78b5b1d97eb78f5f420cc9eb}{bottom\+Frame}} ()
+\begin{DoxyCompactList}\small\item\em Draws the bottom frame on the OLED display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bitmapManager_8cpp_a844bc9e06788d1c0e4692f189f77af38}{main\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Displays the main screen on the OLED display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bitmapManager_8cpp_a0190a3405ec99730903a8d96c30a9b56}{joystick\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Displays the joystick screen on the OLED display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bitmapManager_8cpp_a04c0f3c1b3a6e3b55cd793d32f687ccd}{status\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Displays the status screen on the OLED display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bitmapManager_8cpp_ae3be9d0c971d912f6343a0e7762e58f9}{waiting\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Displays the waiting screen on the OLED display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bitmapManager_8cpp_ad70726016b7722deb394071ac6572e63}{ready\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Displays the ready screen on the OLED display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bitmapManager_8cpp_ac740545a3bc61ced5b391cddcb438622}{starting\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Displays the starting screen on the OLED display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bitmapManager_8cpp_a7289c06faeea112b96755f6b26db45f6}{stopping\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Displays the stopping screen on the OLED display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bitmapManager_8cpp_a14797808e6c8236e04bbb527005d892f}{stopped\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Displays the stopped screen on the OLED display. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Source file to manage bitmap creation and display on the OLED screen. 
+
+This file contains the function implementations to draw various bitmaps and screens on an OLED display using the HT\+\_\+\+SSD1306\+Wire library. The functions include drawing logos, loading screens, and different status screens. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{bitmapManager_8cpp_a9579a44d78b5b1d97eb78f5f420cc9eb}\label{bitmapManager_8cpp_a9579a44d78b5b1d97eb78f5f420cc9eb} 
+\index{bitmapManager.cpp@{bitmapManager.cpp}!bottomFrame@{bottomFrame}}
+\index{bottomFrame@{bottomFrame}!bitmapManager.cpp@{bitmapManager.cpp}}
+\doxysubsubsection{\texorpdfstring{bottomFrame()}{bottomFrame()}}
+{\footnotesize\ttfamily void bottom\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draws the bottom frame on the OLED display. 
+
+\Hypertarget{bitmapManager_8cpp_af217e90c928439900ae3f1a70ceeacf0}\label{bitmapManager_8cpp_af217e90c928439900ae3f1a70ceeacf0} 
+\index{bitmapManager.cpp@{bitmapManager.cpp}!drawLogo@{drawLogo}}
+\index{drawLogo@{drawLogo}!bitmapManager.cpp@{bitmapManager.cpp}}
+\doxysubsubsection{\texorpdfstring{drawLogo()}{drawLogo()}}
+{\footnotesize\ttfamily void draw\+Logo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draws the logo on the OLED display. 
+
+\Hypertarget{bitmapManager_8cpp_a0190a3405ec99730903a8d96c30a9b56}\label{bitmapManager_8cpp_a0190a3405ec99730903a8d96c30a9b56} 
+\index{bitmapManager.cpp@{bitmapManager.cpp}!joystickScreen@{joystickScreen}}
+\index{joystickScreen@{joystickScreen}!bitmapManager.cpp@{bitmapManager.cpp}}
+\doxysubsubsection{\texorpdfstring{joystickScreen()}{joystickScreen()}}
+{\footnotesize\ttfamily void joystick\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays the joystick screen on the OLED display. 
+
+\Hypertarget{bitmapManager_8cpp_a0c76d521fb34b3deb0608a228ab3b620}\label{bitmapManager_8cpp_a0c76d521fb34b3deb0608a228ab3b620} 
+\index{bitmapManager.cpp@{bitmapManager.cpp}!loadingScreen@{loadingScreen}}
+\index{loadingScreen@{loadingScreen}!bitmapManager.cpp@{bitmapManager.cpp}}
+\doxysubsubsection{\texorpdfstring{loadingScreen()}{loadingScreen()}}
+{\footnotesize\ttfamily void loading\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays a loading screen with progress bars for joystick initialization. 
+
+Displays the loading screen during initialization.
+
+This function sets the LED status to CONFIG and iterates through the joysticks, displaying a progress bar for each one. Once done, it sets the display to a "{}\+Ready"{} state. \Hypertarget{bitmapManager_8cpp_a844bc9e06788d1c0e4692f189f77af38}\label{bitmapManager_8cpp_a844bc9e06788d1c0e4692f189f77af38} 
+\index{bitmapManager.cpp@{bitmapManager.cpp}!mainScreen@{mainScreen}}
+\index{mainScreen@{mainScreen}!bitmapManager.cpp@{bitmapManager.cpp}}
+\doxysubsubsection{\texorpdfstring{mainScreen()}{mainScreen()}}
+{\footnotesize\ttfamily void main\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays the main screen on the OLED display. 
+
+\Hypertarget{bitmapManager_8cpp_ad70726016b7722deb394071ac6572e63}\label{bitmapManager_8cpp_ad70726016b7722deb394071ac6572e63} 
+\index{bitmapManager.cpp@{bitmapManager.cpp}!readyScreen@{readyScreen}}
+\index{readyScreen@{readyScreen}!bitmapManager.cpp@{bitmapManager.cpp}}
+\doxysubsubsection{\texorpdfstring{readyScreen()}{readyScreen()}}
+{\footnotesize\ttfamily void ready\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays the ready screen on the OLED display. 
+
+\Hypertarget{bitmapManager_8cpp_ac740545a3bc61ced5b391cddcb438622}\label{bitmapManager_8cpp_ac740545a3bc61ced5b391cddcb438622} 
+\index{bitmapManager.cpp@{bitmapManager.cpp}!startingScreen@{startingScreen}}
+\index{startingScreen@{startingScreen}!bitmapManager.cpp@{bitmapManager.cpp}}
+\doxysubsubsection{\texorpdfstring{startingScreen()}{startingScreen()}}
+{\footnotesize\ttfamily void starting\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays the starting screen on the OLED display. 
+
+\Hypertarget{bitmapManager_8cpp_a04c0f3c1b3a6e3b55cd793d32f687ccd}\label{bitmapManager_8cpp_a04c0f3c1b3a6e3b55cd793d32f687ccd} 
+\index{bitmapManager.cpp@{bitmapManager.cpp}!statusScreen@{statusScreen}}
+\index{statusScreen@{statusScreen}!bitmapManager.cpp@{bitmapManager.cpp}}
+\doxysubsubsection{\texorpdfstring{statusScreen()}{statusScreen()}}
+{\footnotesize\ttfamily void status\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays the status screen on the OLED display. 
+
+\Hypertarget{bitmapManager_8cpp_a14797808e6c8236e04bbb527005d892f}\label{bitmapManager_8cpp_a14797808e6c8236e04bbb527005d892f} 
+\index{bitmapManager.cpp@{bitmapManager.cpp}!stoppedScreen@{stoppedScreen}}
+\index{stoppedScreen@{stoppedScreen}!bitmapManager.cpp@{bitmapManager.cpp}}
+\doxysubsubsection{\texorpdfstring{stoppedScreen()}{stoppedScreen()}}
+{\footnotesize\ttfamily void stopped\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays the stopped screen on the OLED display. 
+
+\Hypertarget{bitmapManager_8cpp_a7289c06faeea112b96755f6b26db45f6}\label{bitmapManager_8cpp_a7289c06faeea112b96755f6b26db45f6} 
+\index{bitmapManager.cpp@{bitmapManager.cpp}!stoppingScreen@{stoppingScreen}}
+\index{stoppingScreen@{stoppingScreen}!bitmapManager.cpp@{bitmapManager.cpp}}
+\doxysubsubsection{\texorpdfstring{stoppingScreen()}{stoppingScreen()}}
+{\footnotesize\ttfamily void stopping\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays the stopping screen on the OLED display. 
+
+\Hypertarget{bitmapManager_8cpp_ae358b741776acd08a31c41d337c239cb}\label{bitmapManager_8cpp_ae358b741776acd08a31c41d337c239cb} 
+\index{bitmapManager.cpp@{bitmapManager.cpp}!topFrame@{topFrame}}
+\index{topFrame@{topFrame}!bitmapManager.cpp@{bitmapManager.cpp}}
+\doxysubsubsection{\texorpdfstring{topFrame()}{topFrame()}}
+{\footnotesize\ttfamily void top\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draws the top frame on the OLED display. 
+
+\Hypertarget{bitmapManager_8cpp_ae3be9d0c971d912f6343a0e7762e58f9}\label{bitmapManager_8cpp_ae3be9d0c971d912f6343a0e7762e58f9} 
+\index{bitmapManager.cpp@{bitmapManager.cpp}!waitingScreen@{waitingScreen}}
+\index{waitingScreen@{waitingScreen}!bitmapManager.cpp@{bitmapManager.cpp}}
+\doxysubsubsection{\texorpdfstring{waitingScreen()}{waitingScreen()}}
+{\footnotesize\ttfamily void waiting\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays the waiting screen on the OLED display. 
+
