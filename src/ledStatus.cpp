@@ -79,6 +79,36 @@ void manageLED(void *pvParameters)
     }
   }
 }
+/**
+ * @brief Initializes the LED pin, serial communication, and creates the FreeRTOS tasks.
+ *
+ * Joysticks and LEDs are connected to the Normally Connected pins of the relays
+ * So Output shoud be LOW to to disconnect the device
+ */
+void disconnectAllRelays()
+{
+  // Disconnect all USB boards
+  pinMode(RELAY1, OUTPUT);
+  pinMode(RELAY2, OUTPUT);
+  pinMode(RELAY3, OUTPUT);
+  pinMode(RELAY4, OUTPUT);
+  pinMode(RELAY5, OUTPUT);
+  pinMode(RELAY6, OUTPUT);
+  pinMode(RELAY7, OUTPUT);
+  pinMode(RELAY8, OUTPUT);
+  digitalWrite(RELAY1, LOW);
+  digitalWrite(RELAY2, LOW);
+  delay(500);
+  digitalWrite(RELAY3, LOW);
+  digitalWrite(RELAY4, LOW);
+  delay(500);
+  digitalWrite(RELAY5, LOW);
+  digitalWrite(RELAY6, LOW);
+  delay(500);
+  digitalWrite(RELAY7, LOW);
+  digitalWrite(RELAY8, LOW);
+  delay(500);
+}
 
 /**
  * @brief Activates LEDs based on the number of players.
@@ -97,7 +127,7 @@ void activateLeds(int nbPlayers, bool showStatus)
   }
   else if (nbPlayers < 0)
   {
-    nbPlayers = 1;
+    nbPlayers = 0;
   }
 
   bool ledStatus[4] = {false, false, false, false};
@@ -111,14 +141,20 @@ void activateLeds(int nbPlayers, bool showStatus)
     {
       if (showStatus)
       {
+        // Display a connected status for this joystick on the OLED
         display.drawXbm(joyPos[currentJoy] * 32, 32, Joystick_icon_width, Joystick_icon_width, JoyON[currentJoy]);
+        // Physically connect the LEDs for this joystick
+        digitalWrite(RELAY[currentJoy * 2 + 1], HIGH);
       }
     }
     else
     {
       if (showStatus)
       {
+        // Display a disconnected status for this Joystick on the OLED
         display.drawXbm(joyPos[currentJoy] * 32, 32, Joystick_icon_width, Joystick_icon_width, JoyOFF[currentJoy]);
+        // Physically disconnect the LEDs for this joystick
+        digitalWrite(RELAY[currentJoy * 2 + 1], LOW);
       }
     }
   }

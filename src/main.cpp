@@ -55,6 +55,9 @@ void initJoystick(int joystickNum);
  */
 void setup()
 {
+
+  disconnectAllRelays();
+
   // Initialize serial communication
   Serial.begin(115200);
 
@@ -90,7 +93,11 @@ void initJoystick(int joystickNum)
   int progress = joystickNum * 25;
   // Draw the progress bar
   display.drawProgressBar(5, 42, 116, 10, progress);
-  // Draw the percentage as String (optional)
+  // Physically reconnect the joystick and the buttons LEDS
+  digitalWrite(RELAY[joystickNum * 2 - 2], HIGH);
+  delay(1000);
+  digitalWrite(RELAY[joystickNum * 2 - 1], HIGH);
+  delay(1000);
 }
 
 // Main loop =============================================
@@ -117,7 +124,7 @@ void loop()
         statusScreen();
         initJoystick(currentJoystick);
         display.display();
-        delay(2000);
+        delay(1000);
       }
       currentStatus = READY;
       readyScreen();
@@ -171,21 +178,26 @@ void loop()
       case 'S':
         Serial.println("ACK:S"); // Starting
         startingScreen();
+        activateLeds(0);
         break;
       case 'D':
         Serial.println("ACK:D"); // Started
         startingScreen();
+        activateLeds(0);
         break;
       case 'E':
         Serial.println("ACK:E"); // stopping
         stoppingScreen();
+        activateLeds(4);
         break;
       case 'P':
         Serial.println("ACK:P"); // stopped
         stoppedScreen();
+        activateLeds(0);
         break;
       default:
         Serial.println("ACK:?");
+        // Do nothing with buttons LEDs
         break;
       }
     }

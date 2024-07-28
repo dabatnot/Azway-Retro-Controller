@@ -66,6 +66,7 @@ void loadingScreen()
     display.clear();
     display.display();
     currentStatus = WAITING;
+    disconnectAllRelays();
 }
 
 /**

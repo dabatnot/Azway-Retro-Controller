@@ -43,6 +43,7 @@
 #include "HT_SSD1306Wire.h"
 #include "images.h"
 #include "display.h" // Include display.h to use the display object
+#include "firmware_config.h"
 
 // Pin definitions
 const int ledPin = LED; // LED connected to GPIO pin
@@ -92,4 +93,8 @@ void activateLeds(int nbPlayers, bool showStatus = true);
  */
 void setupLED();
 
+/**
+ * @brief Physically disconnect all joysticks
+ */
+void disconnectAllRelays();
 #endif // LEDSTATUS_H
