@@ -47,6 +47,44 @@
  */
 extern CustomDisplay display;
 
+// Definitions
+
+/** @brief Macro for getting the display width. */
+#ifndef LCDWidth
+// #define LCDWidth display.getDisplayWidth()
+#define LCDWidth display.getDisplayWidth()
+#endif
+
+/** @brief Macro for getting the display height. */
+#ifndef LCDHeight
+#define LCDHeight display.getDisplayHeight()
+#endif
+
+/** @brief Macro for calculating the height of the text. */
+#ifndef TEXT_HEIGHT
+#define TEXT_HEIGHT (display.getAscent() - display.getDescent())
+#endif
+
+/** @brief Macro for horizontally centering text. */
+#ifndef TEXT_ALIGN_CENTER
+#define TEXT_ALIGN_CENTER(t) ((LCDWidth - (display.getUTF8Width(t))) / 2)
+#endif
+
+/** @brief Macro for vertically centering text. */
+#ifndef TEXT_ALIGN_CENTER_V
+#define TEXT_ALIGN_CENTER_V(t) ((LCDHeight + TEXT_HEIGHT) / 2)
+#endif
+
+/** @brief Macro for aligning text to the right. */
+#ifndef TEXT_ALIGN_RIGHT
+#define TEXT_ALIGN_RIGHT(t) (LCDWidth - display.getUTF8Width(t))
+#endif
+
+/** @brief Macro for aligning text to the left. */
+#ifndef TEXT_ALIGN_LEFT
+#define TEXT_ALIGN_LEFT 0
+#endif
+
 /**
  * @brief Draw a progress bar on the display.
  *
@@ -65,18 +103,22 @@ void CustomDisplay::drawProgressBar(uint16_t x, uint16_t y, uint16_t width, uint
     uint16_t xRadius = x + radius;       // X-coordinate of the left rounded corner center
     uint16_t yRadius = y + radius;       // Y-coordinate of the left rounded corner center
     uint16_t doubleRadius = radius << 1; // Diameter of the rounded corners
-    uint16_t innerRadius = radius - 2;   // Inner radius for the filled part of the corners
 
     // Draw the outer frame of the progress bar
-    drawCircle(xRadius, yRadius, radius, U8G2_DRAW_ALL);
-    drawHLine(xRadius, y, width - doubleRadius + 1);
-    drawHLine(xRadius, y + height, width - doubleRadius + 1);
-    drawCircle(x + width - radius, yRadius, radius, U8G2_DRAW_ALL);
+    drawDisc(xRadius, yRadius, radius, U8G2_DRAW_ALL);        // Left rounded corner
+    drawHLine(xRadius, y, width - doubleRadius + 1);          // Top horizontal line
+    drawHLine(xRadius, y + height, width - doubleRadius + 1); // Bottom horizontal line
+    drawDisc(x + width - radius, yRadius, radius, U8G2_DRAW_ALL);
 
     // Calculate the width of the filled part based on progress
     uint16_t maxProgressWidth = (width - doubleRadius + 1) * progress / 100;
 
     // Draw the filled part of the progress bar
     drawBox(xRadius, y + 1, maxProgressWidth, height - 1);
-    drawDisc(xRadius + maxProgressWidth, yRadius, innerRadius, U8G2_DRAW_ALL);
+
+    // Draw the ending disc only if the progress is less than 100%
+    if (progress < 100 && maxProgressWidth > 0)
+    {
+        drawDisc(xRadius + maxProgressWidth, yRadius, radius - 1, U8G2_DRAW_ALL);
+    }
 }
