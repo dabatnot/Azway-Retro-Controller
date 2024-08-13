@@ -35,14 +35,14 @@
 #define BITMAPMANAGER_H
 
 #include <Arduino.h>
+#ifdef HELTEC
 #include "HT_SSD1306Wire.h"
+#endif
 #include <Wire.h>
 #include "images.h"
 #include "display.h" // Include display.h to use the display object
 #include "ledStatus.h"
 #include "firmware_config.h"
-
-
 
 /**
  * @brief Draws the logo on the OLED display.

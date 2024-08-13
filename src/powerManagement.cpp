@@ -38,8 +38,11 @@
  */
 void VextON(void)
 {
+#ifdef HELTEC
     pinMode(Vext, OUTPUT);
     digitalWrite(Vext, LOW);
+#endif
+    Serial.println("Power ON");
 }
 
 /**
@@ -49,6 +52,9 @@ void VextON(void)
  */
 void VextOFF(void)
 {
+#ifdef HELTEC
     pinMode(Vext, OUTPUT);
     digitalWrite(Vext, HIGH);
+#endif
+    Serial.println("Power OFF");
 }

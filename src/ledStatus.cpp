@@ -89,6 +89,7 @@ void manageLED(void *pvParameters)
 void disconnectAllRelays()
 {
   // Disconnect all USB boards
+
   pinMode(RELAY1, OUTPUT);
   pinMode(RELAY2, OUTPUT);
   pinMode(RELAY3, OUTPUT);
@@ -97,6 +98,8 @@ void disconnectAllRelays()
   pinMode(RELAY6, OUTPUT);
   pinMode(RELAY7, OUTPUT);
   pinMode(RELAY8, OUTPUT);
+
+
   digitalWrite(RELAY1, LOW);
   digitalWrite(RELAY2, LOW);
   delay(500);
@@ -109,6 +112,8 @@ void disconnectAllRelays()
   digitalWrite(RELAY7, LOW);
   digitalWrite(RELAY8, LOW);
   delay(500);
+
+  Serial.print("Test");
 }
 
 /**

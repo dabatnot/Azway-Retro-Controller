@@ -59,7 +59,6 @@ public:
  */
 extern CustomDisplay display;
 
-
 // Definitions
 
 /** @brief Macro for getting the display width. */

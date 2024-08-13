@@ -31,14 +31,13 @@
  */
 
 #include <Arduino.h>
-#include <SPI.h>
+// #include <SPI.h>
 #include "powerManagement.h"
 #include "images.h"
 #include "ledStatus.h"
 #include "bitmapManager.h"
 #include "display.h" // Assuming CustomDisplay and display instance are declared here
-CustomDisplay display(U8G2_R0, /* reset=*/21, /* clock=*/18, /* data=*/17);
-
+CustomDisplay display(U8G2_R0, /* reset=*/I2CRESET, /* clock=*/I2CSCL, /* data=*/I2CSDA);
 /**
  * @brief Initializes the joystick with the given number.
  * @param joystickNum The number of the joystick to initialize.
@@ -78,13 +77,14 @@ void setup()
   loadingScreen();
 
   // Display the waiting screen
-   waitingScreen();
+  waitingScreen();
 }
 
 /**
  * @brief Initializes the joystick with the given number.
  * @param joystickNum The number of the joystick to initialize.
  */
+
 void initJoystick(int joystickNum)
 {
   int progress = joystickNum * 25;
@@ -104,6 +104,7 @@ void initJoystick(int joystickNum)
  *
  * This function checks for incoming serial messages and updates the OLED display and LED status based on the received messages.
  */
+
 void loop()
 {
   // Check if data is available on the serial port
