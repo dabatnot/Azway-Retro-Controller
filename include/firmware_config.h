@@ -2,7 +2,7 @@
 #ifndef FIRMWARE_CONFIG_H
 #define FIRMWARE_CONFIG_H
 
-const char CONTROLLER_VERSION[] = "v1.1.16";
+const char CONTROLLER_VERSION[] = "v1.2.0";
 
 //===============================
 // USED PINS.
