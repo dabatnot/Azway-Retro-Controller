@@ -32,14 +32,12 @@
 
 #include <Arduino.h>
 #include <SPI.h>
-#include "HT_SSD1306Wire.h"
 #include "powerManagement.h"
 #include "images.h"
 #include "ledStatus.h"
 #include "bitmapManager.h"
-
-// Create an instance of the SSD1306 OLED display
-SSD1306Wire display(0x3c, 500000, SDA_OLED, SCL_OLED, GEOMETRY_128_64, RST_OLED); // addr, freq, i2c group, resolution, rst
+#include "display.h" // Assuming CustomDisplay and display instance are declared here
+CustomDisplay display(U8G2_R0, /* reset=*/21, /* clock=*/18, /* data=*/17);
 
 /**
  * @brief Initializes the joystick with the given number.
@@ -55,7 +53,6 @@ void initJoystick(int joystickNum);
  */
 void setup()
 {
-
   disconnectAllRelays();
 
   // Initialize serial communication
@@ -75,13 +72,13 @@ void setup()
   delay(100);
 
   // Initialize the display
-  display.init();
+  display.begin();
 
   // Display the loading screen
   loadingScreen();
 
   // Display the waiting screen
-  waitingScreen();
+   waitingScreen();
 }
 
 /**
@@ -93,6 +90,7 @@ void initJoystick(int joystickNum)
   int progress = joystickNum * 25;
   // Draw the progress bar
   display.drawProgressBar(5, 42, 116, 10, progress);
+
   // Physically reconnect the joystick and the buttons LEDS
   digitalWrite(RELAY[joystickNum * 2 - 2], HIGH);
   delay(1000);
@@ -114,16 +112,27 @@ void loop()
     // Read the message
     String message = Serial.readStringUntil('\n');
     message.trim(); // Call trim() on a separate line
+
     if (message == "ESP32?")
     {
       Serial.println("ESP32 ready");
       currentStatus = CONFIG;
+
       for (int currentJoystick = 1; currentJoystick < 5; currentJoystick++)
       {
-        display.clear();
+        // Clear the display buffer
+        display.clearBuffer();
+
+        // Draw the status screen
         statusScreen();
+
+        // Initialize the joystick
         initJoystick(currentJoystick);
-        display.display();
+
+        // Send the buffer content to the display
+        display.sendBuffer();
+
+        // Wait for 1 second
         delay(1000);
       }
       currentStatus = READY;
@@ -139,28 +148,16 @@ void loop()
       // Handle the message based on the event
       char event = message.charAt(0);
       String ack = "ACK:" + String(message);
-      int x = display.width() / 2;
-      display.setTextAlignment(TEXT_ALIGN_CENTER);
 
       switch (event)
       {
       case 'N':
-        display.clear();
-        joystickScreen();
-        activateLeds(nbPlayers);
-        display.display();
-        break;
       case 'L':
-        display.clear();
-        joystickScreen();
-        activateLeds(nbPlayers);
-        display.display();
-        break;
       case 'Q':
-        display.clear();
+        display.clearBuffer();
         joystickScreen();
         activateLeds(nbPlayers);
-        display.display();
+        display.sendBuffer();
         break;
       default:
         ack = "ACK:?";
@@ -170,8 +167,6 @@ void loop()
     }
     else
     {
-      int x = display.width() / 2;
-      display.setTextAlignment(TEXT_ALIGN_CENTER);
       // Handle other messages
       switch (message.charAt(0))
       {

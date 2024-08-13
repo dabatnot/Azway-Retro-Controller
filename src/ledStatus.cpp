@@ -32,6 +32,7 @@
  */
 
 #include "ledStatus.h"
+extern CustomDisplay display;
 
 /// Positions of the joysticks on the display
 int joyPos[4] = {0, 1, 2, 3};
@@ -142,7 +143,7 @@ void activateLeds(int nbPlayers, bool showStatus)
       if (showStatus)
       {
         // Display a connected status for this joystick on the OLED
-        display.drawXbm(joyPos[currentJoy] * 32, 32, Joystick_icon_width, Joystick_icon_width, JoyON[currentJoy]);
+        display.drawXBMP(joyPos[currentJoy] * 32, 32, Joystick_icon_width, Joystick_icon_width, JoyON[currentJoy]);
         // Physically connect the LEDs for this joystick
         digitalWrite(RELAY[currentJoy * 2 + 1], HIGH);
       }
@@ -152,7 +153,7 @@ void activateLeds(int nbPlayers, bool showStatus)
       if (showStatus)
       {
         // Display a disconnected status for this Joystick on the OLED
-        display.drawXbm(joyPos[currentJoy] * 32, 32, Joystick_icon_width, Joystick_icon_width, JoyOFF[currentJoy]);
+        display.drawXBMP(joyPos[currentJoy] * 32, 32, Joystick_icon_width, Joystick_icon_width, JoyOFF[currentJoy]);
         // Physically disconnect the LEDs for this joystick
         digitalWrite(RELAY[currentJoy * 2 + 1], LOW);
       }

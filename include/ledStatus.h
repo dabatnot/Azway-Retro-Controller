@@ -41,6 +41,7 @@
 
 #include <Arduino.h>
 #include "HT_SSD1306Wire.h"
+#include <Wire.h>
 #include "images.h"
 #include "display.h" // Include display.h to use the display object
 #include "firmware_config.h"

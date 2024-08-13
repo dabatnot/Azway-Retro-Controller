@@ -36,10 +36,13 @@
 
 #include <Arduino.h>
 #include "HT_SSD1306Wire.h"
+#include <Wire.h>
 #include "images.h"
 #include "display.h" // Include display.h to use the display object
 #include "ledStatus.h"
 #include "firmware_config.h"
+
+
 
 /**
  * @brief Draws the logo on the OLED display.

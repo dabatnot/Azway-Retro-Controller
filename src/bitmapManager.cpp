@@ -32,19 +32,26 @@
  */
 
 #include "bitmapManager.h"
+#include "display.h"
 
 /**
  * @brief Draws the logo on the OLED display.
  */
 void drawLogo()
 {
-    display.drawXbm(29, 10, Azway_Logo_width, Azway_Logo_height, Azway_Logo);
+    display.setFont(u8g2_font_helvR10_tf); // Remplacez par la police adéquate
 
-    display.setTextAlignment(TEXT_ALIGN_CENTER);
-    display.setFont(ArialMT_Plain_10);
-    int x = display.width() / 2;
-    int y = display.height() / 2;
-    display.drawString(x, y + 5, "AZWAY RETRO");
+    // Affiche le logo à une position fixe
+    display.drawXBMP(29, 10, Azway_Logo_width, Azway_Logo_height, Azway_Logo);
+
+    // Chaîne de texte à afficher
+    const char *text = "AZWAY RETRO";
+
+    // Utilisation des macros pour centrer le texte
+    int x = TEXT_ALIGN_CENTER(text);
+    int y = TEXT_ALIGN_CENTER_V(text) + 10;
+
+    display.drawStr(x, y, text);
 }
 
 /**
@@ -55,17 +62,38 @@ void drawLogo()
  */
 void loadingScreen()
 {
-    display.clear();
+    // Clear the display buffer
+    display.clearBuffer();
+
+    // Draw the logo
     drawLogo();
-    int x = display.width() / 2;
-    display.setTextAlignment(TEXT_ALIGN_CENTER);
-    display.setFont(ArialMT_Plain_10);
-    display.drawString(x, 52, CONTROLLER_VERSION);
-    display.display();
+
+    // Text to display for the controller version
+    const char *versionText = CONTROLLER_VERSION;
+
+    display.setFont(u8g2_font_ncenB08_tr); // Replace with the appropriate font
+    // Use macros to center the text horizontally
+    int x = TEXT_ALIGN_CENTER(versionText);
+    // int x = 0;
+    int y = TEXT_ALIGN_CENTER_V(versionText) + 26;
+
+    // Set the font and draw the version text
+    display.drawStr(x, y, versionText);
+
+    // Send the buffer content to the display
+    display.sendBuffer();
+
+    // Wait for 10 seconds
     delay(10000);
-    display.clear();
-    display.display();
-    currentStatus = WAITING;
+
+    // Clear the display
+    display.clearBuffer();
+    display.sendBuffer();
+
+    // Update the current status
+    // currentStatus = WAITING;
+
+    // Disconnect all relays
     disconnectAllRelays();
 }
 
@@ -74,7 +102,7 @@ void loadingScreen()
  */
 void topFrame()
 {
-    display.drawXbm(0, 0, Frame_width, Frame_height, BmpFrame[0]);
+    display.drawXBMP(0, 0, Frame_width, Frame_height, BmpFrame[0]);
 }
 
 /**
@@ -82,7 +110,7 @@ void topFrame()
  */
 void bottomFrame()
 {
-    display.drawXbm(0, 32, Frame_width, Frame_height, BmpFrame[1]);
+    display.drawXBMP(0, 32, Frame_width, Frame_height, BmpFrame[1]);
 }
 
 /**
@@ -91,16 +119,16 @@ void bottomFrame()
 void mainScreen()
 {
     topFrame();
-    display.drawXbm(32, 11, bmpStatus_width, bmpStatus_height, bmpStatus);
+    display.drawXBMP(32, 11, bmpStatus_width, bmpStatus_height, bmpStatus);
     if (currentStatus == READY)
     {
-        display.drawXbm(6, 8, bmpStar_width, bmpStar_height, bmpStar[1]);
-        display.drawXbm(106, 8, bmpStar_width, bmpStar_height, bmpStar[1]);
+        display.drawXBMP(6, 8, bmpStar_width, bmpStar_height, bmpStar[1]);
+        display.drawXBMP(106, 8, bmpStar_width, bmpStar_height, bmpStar[1]);
     }
     else
     {
-        display.drawXbm(6, 8, bmpStar_width, bmpStar_height, bmpStar[0]);
-        display.drawXbm(106, 8, bmpStar_width, bmpStar_height, bmpStar[0]);
+        display.drawXBMP(6, 8, bmpStar_width, bmpStar_height, bmpStar[0]);
+        display.drawXBMP(106, 8, bmpStar_width, bmpStar_height, bmpStar[0]);
     }
 }
 
@@ -126,10 +154,17 @@ void statusScreen()
  */
 void waitingScreen()
 {
-    display.clear();
+    // Clear the display buffer
+    display.clearBuffer();
+
+    // Draw the status screen
     statusScreen();
-    display.drawXbm(4, 38, bmpConnection_width, bmpConnection_height, ConnectionStateallArray[1]);
-    display.display();
+
+    // Draw the bitmap at the specified position
+    display.drawXBMP(4, 38, bmpConnection_width, bmpConnection_height, ConnectionStateallArray[1]);
+
+    // Send the buffer content to the display
+    display.sendBuffer();
 }
 
 /**
@@ -137,10 +172,17 @@ void waitingScreen()
  */
 void readyScreen()
 {
-    display.clear();
+    // Clear the display buffer
+    display.clearBuffer();
+
+    // Draw the status screen
     statusScreen();
-    display.drawXbm(4, 38, bmpConnection_width, bmpConnection_height, ConnectionStateallArray[0]);
-    display.display();
+
+    // Draw the bitmap at the specified position
+    display.drawXBMP(4, 38, bmpConnection_width, bmpConnection_height, ConnectionStateallArray[0]);
+
+    // Send the buffer content to the display
+    display.sendBuffer();
 }
 
 /**
@@ -148,12 +190,21 @@ void readyScreen()
  */
 void startingScreen()
 {
-    display.clear();
+    // Clear the display buffer
+    display.clearBuffer();
+
+    // Draw the status screen
     statusScreen();
-    display.drawXbm(6, 39, bmpRocket_width, bmpRocket_height, bmpRocket);
-    display.drawXbm(109, 39, bmpRocket_width, bmpRocket_height, bmpRocket);
-    display.drawXbm(25, 43, bmpStarting_width, bmpStarting_height, bmpStarting);
-    display.display();
+
+    // Draw the rocket bitmap at the specified positions
+    display.drawXBMP(6, 39, bmpRocket_width, bmpRocket_height, bmpRocket);
+    display.drawXBMP(109, 39, bmpRocket_width, bmpRocket_height, bmpRocket);
+
+    // Draw the "Starting" bitmap at the specified position
+    display.drawXBMP(25, 43, bmpStarting_width, bmpStarting_height, bmpStarting);
+
+    // Send the buffer content to the display
+    display.sendBuffer();
 }
 
 /**
@@ -161,12 +212,21 @@ void startingScreen()
  */
 void stoppingScreen()
 {
-    display.clear();
+    // Clear the display buffer
+    display.clearBuffer();
+
+    // Draw the status screen
     statusScreen();
-    display.drawXbm(4, 41, bmpZZZ_width, bmpZZZ_height, bmpZZZ);
-    display.drawXbm(107, 41, bmpZZZ_width, bmpZZZ_height, bmpZZZ);
-    display.drawXbm(24, 43, bmpStopping_width, bmpStopping_height, bmpStopping);
-    display.display();
+
+    // Draw the ZZZ bitmap at the specified positions
+    display.drawXBMP(4, 41, bmpZZZ_width, bmpZZZ_height, bmpZZZ);
+    display.drawXBMP(107, 41, bmpZZZ_width, bmpZZZ_height, bmpZZZ);
+
+    // Draw the "Stopping" bitmap at the specified position
+    display.drawXBMP(24, 43, bmpStopping_width, bmpStopping_height, bmpStopping);
+
+    // Send the buffer content to the display
+    display.sendBuffer();
 }
 
 /**
@@ -174,10 +234,19 @@ void stoppingScreen()
  */
 void stoppedScreen()
 {
-    display.clear();
+    // Clear the display buffer
+    display.clearBuffer();
+
+    // Draw the status screen
     statusScreen();
-    display.drawXbm(4, 42, bmpBye_width, bmpBye_height, bmpBye);
-    display.drawXbm(104, 42, bmpBye_width, bmpBye_height, bmpBye);
-    display.drawXbm(27, 43, bmpStopped_width, bmpStopped_height, bmpStopped);
-    display.display();
+
+    // Draw the "Bye" bitmap at the specified positions
+    display.drawXBMP(4, 42, bmpBye_width, bmpBye_height, bmpBye);
+    display.drawXBMP(104, 42, bmpBye_width, bmpBye_height, bmpBye);
+
+    // Draw the "Stopped" bitmap at the specified position
+    display.drawXBMP(27, 43, bmpStopped_width, bmpStopped_height, bmpStopped);
+
+    // Send the buffer content to the display
+    display.sendBuffer();
 }

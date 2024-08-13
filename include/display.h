@@ -26,23 +26,76 @@
  * @file display.h
  * @brief Header file for managing the OLED display.
  *
- * This file contains the declaration of the SSD1306Wire display object, which is used to manage
- * the OLED display. It includes necessary libraries and ensures the display object can be accessed
- * throughout the program.
+ * This file contains the declaration of the display object used to manage the OLED display.
+ * It includes necessary libraries and defines macros for text alignment on the screen.
  */
 
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
 #include <Arduino.h>
-#include "HT_SSD1306Wire.h"
+#include <U8g2lib.h>
+#include <Wire.h>
 
 /**
- * @brief Global instance of the SSD1306Wire class used to manage the OLED display.
+ * @brief CustomDisplay class derived from U8G2_SSD1306_128X64_NONAME_F_HW_I2C to add custom drawing functions.
+ */
+class CustomDisplay : public U8G2_SSD1306_128X64_NONAME_F_HW_I2C
+{
+public:
+    // Constructor matching the base class constructor
+    CustomDisplay(const u8g2_cb_t *rotation, uint8_t reset, uint8_t clock, uint8_t data)
+        : U8G2_SSD1306_128X64_NONAME_F_HW_I2C(rotation, reset, clock, data) {}
+
+    // Method to draw a progress bar
+    void drawProgressBar(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t progress);
+};
+
+/**
+ * @brief Global instance of the CustomDisplay class used to manage the OLED display.
  *
  * This object is declared as an external variable so it can be accessed and used in other files
  * that include this header.
  */
-extern SSD1306Wire display;
+extern CustomDisplay display;
+
+
+// Definitions
+
+/** @brief Macro for getting the display width. */
+#ifndef LCDWidth
+// #define LCDWidth display.getDisplayWidth()
+#define LCDWidth display.getDisplayWidth()
+#endif
+
+/** @brief Macro for getting the display height. */
+#ifndef LCDHeight
+#define LCDHeight display.getDisplayHeight()
+#endif
+
+/** @brief Macro for calculating the height of the text. */
+#ifndef TEXT_HEIGHT
+#define TEXT_HEIGHT (display.getAscent() - display.getDescent())
+#endif
+
+/** @brief Macro for horizontally centering text. */
+#ifndef TEXT_ALIGN_CENTER
+#define TEXT_ALIGN_CENTER(t) ((LCDWidth - (display.getUTF8Width(t))) / 2)
+#endif
+
+/** @brief Macro for vertically centering text. */
+#ifndef TEXT_ALIGN_CENTER_V
+#define TEXT_ALIGN_CENTER_V(t) ((LCDHeight + TEXT_HEIGHT) / 2)
+#endif
+
+/** @brief Macro for aligning text to the right. */
+#ifndef TEXT_ALIGN_RIGHT
+#define TEXT_ALIGN_RIGHT(t) (LCDWidth - display.getUTF8Width(t))
+#endif
+
+/** @brief Macro for aligning text to the left. */
+#ifndef TEXT_ALIGN_LEFT
+#define TEXT_ALIGN_LEFT 0
+#endif
 
 #endif // DISPLAY_H
