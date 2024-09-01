@@ -24,9 +24,12 @@
 
 /**
  * @file powerManagement.h
- * @brief Header file for managing power supply (Vext) on the microcontroller.
+ * @brief Header file for managing the external power supply (Vext) on the microcontroller.
  *
- * This file contains the function declarations for turning on and off the Vext power supply.
+ * This file contains function declarations to control the Vext power supply pin, allowing the
+ * microcontroller to enable or disable the external power supply as needed. This can be useful
+ * for managing power consumption in battery-powered devices or controlling peripheral devices
+ * connected to the microcontroller.
  */
 
 #ifndef POWERMANAGEMENT_H
@@ -37,16 +40,19 @@
 // Function declarations
 
 /**
- * @brief Turns on the Vext power supply.
+ * @brief Turns on the external power supply (Vext).
  *
- * This function sets the Vext pin to OUTPUT mode and writes a LOW signal to turn on the Vext power supply.
+ * This function configures the Vext pin as an output and sets it to LOW, enabling the external
+ * power supply. This can be used to power external peripherals or circuits connected to the Vext line.
  */
 void VextON(void);
 
 /**
- * @brief Turns off the Vext power supply.
+ * @brief Turns off the external power supply (Vext).
  *
- * This function sets the Vext pin to OUTPUT mode and writes a HIGH signal to turn off the Vext power supply.
+ * This function configures the Vext pin as an output and sets it to HIGH, disabling the external
+ * power supply. This is useful for reducing power consumption when external peripherals or circuits
+ * connected to the Vext line are not needed.
  */
 void VextOFF(void);
 

@@ -26,25 +26,26 @@
  * @file main.cpp
  * @brief Main program file for managing an OLED display and LED statuses using FreeRTOS tasks on an Arduino-compatible microcontroller.
  *
- * This program initializes the OLED display, manages joystick initialization and displays various statuses based on serial input.
+ * This program initializes the OLED display, manages joystick initialization, and displays various statuses based on serial input.
  * It also controls LED statuses to indicate different system states.
  */
 
 #include <Arduino.h>
-// #include <SPI.h>
 #include "powerManagement.h"
 #include "images.h"
 #include "ledStatus.h"
 #include "bitmapManager.h"
 #include "display.h" // Assuming CustomDisplay and display instance are declared here
+
+/// Global display object used throughout the program
 CustomDisplay display(U8G2_R0, /* reset=*/I2CRESET, /* clock=*/I2CSCL, /* data=*/I2CSDA);
+
 /**
  * @brief Initializes the joystick with the given number.
  * @param joystickNum The number of the joystick to initialize.
  */
 void initJoystick(int joystickNum);
 
-// Setup ==================================================
 /**
  * @brief Setup function called once at startup.
  *
@@ -84,7 +85,6 @@ void setup()
  * @brief Initializes the joystick with the given number.
  * @param joystickNum The number of the joystick to initialize.
  */
-
 void initJoystick(int joystickNum)
 {
   int progress = joystickNum * 25;
@@ -98,13 +98,11 @@ void initJoystick(int joystickNum)
   delay(1000);
 }
 
-// Main loop =============================================
 /**
  * @brief Main loop function called repeatedly.
  *
  * This function checks for incoming serial messages and updates the OLED display and LED status based on the received messages.
  */
-
 void loop()
 {
   // Check if data is available on the serial port
@@ -157,7 +155,7 @@ void loop()
       case 'Q':
         display.clearBuffer();
         joystickScreen();
-        activateLeds(nbPlayers);
+        activateLeds(nbPlayers, true); // true to show status on the display
         display.sendBuffer();
         break;
       default:
@@ -174,22 +172,22 @@ void loop()
       case 'S':
         Serial.println("ACK:S"); // Starting
         startingScreen();
-        activateLeds(0);
+        activateLeds(0, true);
         break;
       case 'D':
         Serial.println("ACK:D"); // Started
         startingScreen();
-        activateLeds(0);
+        activateLeds(0, true);
         break;
       case 'E':
-        Serial.println("ACK:E"); // stopping
+        Serial.println("ACK:E"); // Stopping
         stoppingScreen();
-        activateLeds(4);
+        activateLeds(4, true);
         break;
       case 'P':
-        Serial.println("ACK:P"); // stopped
+        Serial.println("ACK:P"); // Stopped
         stoppedScreen();
-        activateLeds(0);
+        activateLeds(0, true);
         break;
       default:
         Serial.println("ACK:?");

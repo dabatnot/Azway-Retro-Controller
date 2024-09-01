@@ -35,6 +35,7 @@
  * @brief Turns on the Vext power supply.
  *
  * This function sets the Vext pin to OUTPUT mode and writes a LOW signal to turn on the Vext power supply.
+ * The function also prints "Power ON" to the serial console for confirmation.
  */
 void VextON(void)
 {
@@ -49,6 +50,7 @@ void VextON(void)
  * @brief Turns off the Vext power supply.
  *
  * This function sets the Vext pin to OUTPUT mode and writes a HIGH signal to turn off the Vext power supply.
+ * The function also prints "Power OFF" to the serial console for confirmation.
  */
 void VextOFF(void)
 {

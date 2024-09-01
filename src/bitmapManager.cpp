@@ -26,28 +26,31 @@
  * @file bitmapManager.cpp
  * @brief Source file to manage bitmap creation and display on the OLED screen.
  *
- * This file contains the function implementations to draw various bitmaps and screens on an OLED display
+ * This file contains the implementations of functions that draw various bitmaps and screens on an OLED display
  * using the HT_SSD1306Wire library. The functions include drawing logos, loading screens,
- * and different status screens.
+ * and different status screens to enhance the user interface.
  */
 
 #include "bitmapManager.h"
 #include "display.h"
 
 /**
- * @brief Draws the logo on the OLED display.
+ * @brief Draws the Azway logo on the OLED display.
+ *
+ * This function displays the Azway logo at a fixed position on the OLED screen.
+ * The logo is drawn using the XBM format, and the text "AZWAY RETRO" is centered beneath the logo.
  */
 void drawLogo()
 {
-    display.setFont(u8g2_font_helvR10_tf); // Remplacez par la police adéquate
+    display.setFont(u8g2_font_helvR10_tf); // Replace with the appropriate font
 
-    // Affiche le logo à une position fixe
+    // Draw the logo at a fixed position
     display.drawXBMP(29, 10, Azway_Logo_width, Azway_Logo_height, Azway_Logo);
 
-    // Chaîne de texte à afficher
+    // Text to display under the logo
     const char *text = "AZWAY RETRO";
 
-    // Utilisation des macros pour centrer le texte
+    // Use macros to center the text
     int x = TEXT_ALIGN_CENTER(text);
     int y = TEXT_ALIGN_CENTER_V(text) + 10;
 
@@ -57,8 +60,8 @@ void drawLogo()
 /**
  * @brief Displays a loading screen with progress bars for joystick initialization.
  *
- * This function sets the LED status to CONFIG and iterates through the joysticks,
- * displaying a progress bar for each one. Once done, it sets the display to a "Ready" state.
+ * This function clears the display, draws the logo, and displays the controller version
+ * at the center of the screen. It then pauses for a fixed duration before clearing the screen again.
  */
 void loadingScreen()
 {
@@ -74,10 +77,9 @@ void loadingScreen()
     display.setFont(u8g2_font_ncenB08_tr); // Replace with the appropriate font
     // Use macros to center the text horizontally
     int x = TEXT_ALIGN_CENTER(versionText);
-    // int x = 0;
     int y = TEXT_ALIGN_CENTER_V(versionText) + 26;
 
-    // Set the font and draw the version text
+    // Draw the version text
     display.drawStr(x, y, versionText);
 
     // Send the buffer content to the display
@@ -90,7 +92,7 @@ void loadingScreen()
     display.clearBuffer();
     display.sendBuffer();
 
-    // Update the current status
+    // Update the current status (if applicable)
     // currentStatus = WAITING;
 
     // Disconnect all relays
@@ -99,6 +101,9 @@ void loadingScreen()
 
 /**
  * @brief Draws the top frame on the OLED display.
+ *
+ * This function renders the top frame of the OLED display using the appropriate bitmap.
+ * The top frame usually contains static elements like the title or status indicators.
  */
 void topFrame()
 {
@@ -107,6 +112,9 @@ void topFrame()
 
 /**
  * @brief Draws the bottom frame on the OLED display.
+ *
+ * This function renders the bottom frame of the OLED display using the appropriate bitmap.
+ * The bottom frame usually contains static elements like controls or navigation hints.
  */
 void bottomFrame()
 {
@@ -115,6 +123,10 @@ void bottomFrame()
 
 /**
  * @brief Displays the main screen on the OLED display.
+ *
+ * This function renders the main user interface screen on the OLED display.
+ * It includes the top frame and various status indicators, with dynamic elements
+ * based on the current system status.
  */
 void mainScreen()
 {
@@ -134,6 +146,9 @@ void mainScreen()
 
 /**
  * @brief Displays the joystick screen on the OLED display.
+ *
+ * This function displays the joystick status screen by reusing the main screen layout.
+ * It is typically used to show the status of connected joysticks or other input devices.
  */
 void joystickScreen()
 {
@@ -142,6 +157,10 @@ void joystickScreen()
 
 /**
  * @brief Displays the status screen on the OLED display.
+ *
+ * This function renders the status screen, which includes both the top and bottom frames,
+ * along with any relevant status indicators. It serves as a general-purpose screen for
+ * displaying system status.
  */
 void statusScreen()
 {
@@ -151,6 +170,10 @@ void statusScreen()
 
 /**
  * @brief Displays the waiting screen on the OLED display.
+ *
+ * This function shows a waiting screen on the OLED display, indicating that the system is
+ * in a temporary holding state. It displays a connecting animation to inform the user
+ * that a process is ongoing.
  */
 void waitingScreen()
 {
@@ -160,7 +183,7 @@ void waitingScreen()
     // Draw the status screen
     statusScreen();
 
-    // Draw the bitmap at the specified position
+    // Draw the connection status bitmap
     display.drawXBMP(4, 38, bmpConnection_width, bmpConnection_height, ConnectionStateallArray[1]);
 
     // Send the buffer content to the display
@@ -169,6 +192,10 @@ void waitingScreen()
 
 /**
  * @brief Displays the ready screen on the OLED display.
+ *
+ * This function shows a ready screen on the OLED display, indicating that the system
+ * is prepared for the next operation. It displays a connected animation to inform the user
+ * that the system is ready.
  */
 void readyScreen()
 {
@@ -178,7 +205,7 @@ void readyScreen()
     // Draw the status screen
     statusScreen();
 
-    // Draw the bitmap at the specified position
+    // Draw the connection status bitmap
     display.drawXBMP(4, 38, bmpConnection_width, bmpConnection_height, ConnectionStateallArray[0]);
 
     // Send the buffer content to the display
@@ -187,6 +214,10 @@ void readyScreen()
 
 /**
  * @brief Displays the starting screen on the OLED display.
+ *
+ * This function shows a starting screen on the OLED display, indicating that the system
+ * is beginning an operation. It includes animations like rockets and a "Starting" message
+ * to visually represent the system startup.
  */
 void startingScreen()
 {
@@ -196,11 +227,11 @@ void startingScreen()
     // Draw the status screen
     statusScreen();
 
-    // Draw the rocket bitmap at the specified positions
+    // Draw the rocket bitmap
     display.drawXBMP(6, 39, bmpRocket_width, bmpRocket_height, bmpRocket);
     display.drawXBMP(109, 39, bmpRocket_width, bmpRocket_height, bmpRocket);
 
-    // Draw the "Starting" bitmap at the specified position
+    // Draw the "Starting" bitmap
     display.drawXBMP(25, 43, bmpStarting_width, bmpStarting_height, bmpStarting);
 
     // Send the buffer content to the display
@@ -209,6 +240,10 @@ void startingScreen()
 
 /**
  * @brief Displays the stopping screen on the OLED display.
+ *
+ * This function shows a stopping screen on the OLED display, indicating that the system
+ * is in the process of halting operations. It includes animations like "ZZZ" and a "Stopping"
+ * message to visually represent the system shutdown.
  */
 void stoppingScreen()
 {
@@ -218,11 +253,11 @@ void stoppingScreen()
     // Draw the status screen
     statusScreen();
 
-    // Draw the ZZZ bitmap at the specified positions
+    // Draw the ZZZ bitmap
     display.drawXBMP(4, 41, bmpZZZ_width, bmpZZZ_height, bmpZZZ);
     display.drawXBMP(107, 41, bmpZZZ_width, bmpZZZ_height, bmpZZZ);
 
-    // Draw the "Stopping" bitmap at the specified position
+    // Draw the "Stopping" bitmap
     display.drawXBMP(24, 43, bmpStopping_width, bmpStopping_height, bmpStopping);
 
     // Send the buffer content to the display
@@ -231,6 +266,10 @@ void stoppingScreen()
 
 /**
  * @brief Displays the stopped screen on the OLED display.
+ *
+ * This function shows a stopped screen on the OLED display, indicating that the system
+ * has halted its operations completely. It includes a "Bye" message and a "Stopped" status
+ * to inform the user that the system is no longer active.
  */
 void stoppedScreen()
 {
@@ -240,11 +279,11 @@ void stoppedScreen()
     // Draw the status screen
     statusScreen();
 
-    // Draw the "Bye" bitmap at the specified positions
+    // Draw the "Bye" bitmap
     display.drawXBMP(4, 42, bmpBye_width, bmpBye_height, bmpBye);
     display.drawXBMP(104, 42, bmpBye_width, bmpBye_height, bmpBye);
 
-    // Draw the "Stopped" bitmap at the specified position
+    // Draw the "Stopped" bitmap
     display.drawXBMP(27, 43, bmpStopped_width, bmpStopped_height, bmpStopped);
 
     // Send the buffer content to the display

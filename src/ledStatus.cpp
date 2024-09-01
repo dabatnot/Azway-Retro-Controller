@@ -80,16 +80,17 @@ void manageLED(void *pvParameters)
     }
   }
 }
+
 /**
- * @brief Initializes the LED pin, serial communication, and creates the FreeRTOS tasks.
+ * @brief Disconnects all USB devices by turning off the corresponding relays.
  *
- * Joysticks and LEDs are connected to the Normally Connected pins of the relays
- * So Output shoud be LOW to to disconnect the device
+ * This function sets all relay pins to LOW to disconnect all devices connected
+ * via the relays. It also includes a small delay between each disconnection to ensure
+ * stable operation.
  */
 void disconnectAllRelays()
 {
-  // Disconnect all USB boards
-
+  // Set relay pins as outputs
   pinMode(RELAY1, OUTPUT);
   pinMode(RELAY2, OUTPUT);
   pinMode(RELAY3, OUTPUT);
@@ -99,7 +100,7 @@ void disconnectAllRelays()
   pinMode(RELAY7, OUTPUT);
   pinMode(RELAY8, OUTPUT);
 
-
+  // Disconnect all devices
   digitalWrite(RELAY1, LOW);
   digitalWrite(RELAY2, LOW);
   delay(500);
@@ -113,7 +114,7 @@ void disconnectAllRelays()
   digitalWrite(RELAY8, LOW);
   delay(500);
 
-  Serial.print("Test");
+  Serial.print("All relays disconnected.");
 }
 
 /**
@@ -122,7 +123,7 @@ void disconnectAllRelays()
  * This function turns on the appropriate number of LEDs based on the number of players.
  * It also updates the display to show the status of each LED.
  *
- * @param nbPlayers The number of players.
+ * @param nbPlayers The number of players (should be between 0 and 4).
  * @param showStatus Whether to show the status on the display.
  */
 void activateLeds(int nbPlayers, bool showStatus)
@@ -157,7 +158,7 @@ void activateLeds(int nbPlayers, bool showStatus)
     {
       if (showStatus)
       {
-        // Display a disconnected status for this Joystick on the OLED
+        // Display a disconnected status for this joystick on the OLED
         display.drawXBMP(joyPos[currentJoy] * 32, 32, Joystick_icon_width, Joystick_icon_width, JoyOFF[currentJoy]);
         // Physically disconnect the LEDs for this joystick
         digitalWrite(RELAY[currentJoy * 2 + 1], LOW);
@@ -170,17 +171,19 @@ void activateLeds(int nbPlayers, bool showStatus)
  * @brief Initializes the LED pin, serial communication, and creates the FreeRTOS tasks.
  *
  * This function sets up the necessary hardware and tasks for managing the LED.
+ * It initializes the LED pin, starts serial communication, and creates the FreeRTOS task
+ * responsible for managing the LED behavior based on the current status.
  */
 void setupLED()
 {
-  // Initialize pin
+  // Initialize LED pin
   pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, LOW);
 
-  // Initialize serial port
+  // Initialize serial communication
   Serial.begin(115200);
 
-  // Create tasks
+  // Create the LED management task
   xTaskCreatePinnedToCore(
       manageLED,    // Task function
       "Manage LED", // Task name
