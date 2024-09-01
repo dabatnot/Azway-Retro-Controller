@@ -40,9 +40,9 @@
 #define LEDSTATUS_H
 
 #include <Arduino.h>
-#ifdef HELTEC
-#include "HT_SSD1306Wire.h"
-#endif
+// #ifdef HELTEC
+// #include "HT_SSD1306Wire.h"
+// #endif
 #include <Wire.h>
 #include "images.h"
 #include "display.h" // Include display.h to use the display object

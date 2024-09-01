@@ -51,7 +51,6 @@ extern CustomDisplay display;
 
 /** @brief Macro for getting the display width. */
 #ifndef LCDWidth
-// #define LCDWidth display.getDisplayWidth()
 #define LCDWidth display.getDisplayWidth()
 #endif
 
